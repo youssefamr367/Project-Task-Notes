@@ -1,0 +1,11 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - complementary [ref=e5]:
+      - heading "Your Projects" [level=2] [ref=e6]
+      - button "Add Button" [ref=e8] [cursor=pointer]
+      - list
+    - generic [ref=e10]:
+      - img "An empty task list" [ref=e11]
+      - heading "No Project Selected" [level=2] [ref=e12]
+      - paragraph [ref=e13]: Select a project or get started with a new one.
+      - button "Add Project" [ref=e14] [cursor=pointer]

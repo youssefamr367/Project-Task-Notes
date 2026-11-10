@@ -1,7 +1,7 @@
 import image from "../assets/no-projects.png";
 import AddProjectButton from "./AddProjectButton";
 
-export default function NoProjectSelected() {
+export default function NoProjectSelected({ onStartAddProject }) {
   return (
     <div className="flex flex-1 items-center justify-center px-6 py-16 text-center">
       <div className="max-w-md">
@@ -16,7 +16,9 @@ export default function NoProjectSelected() {
         <p className="mb-6 text-stone-400">
           Select a project or get started with a new one.
         </p>
-        <AddProjectButton>Add Project</AddProjectButton>
+        <AddProjectButton onClick={onStartAddProject}>
+          Add Project
+        </AddProjectButton>
       </div>
     </div>
   );

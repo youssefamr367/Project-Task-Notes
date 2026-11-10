@@ -25,3 +25,15 @@ body {
   min-height: 100vh;
   background: linear-gradient(135deg, #0c0a09 0%, #1c1917 100%);
 }
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
