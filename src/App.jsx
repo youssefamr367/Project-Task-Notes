@@ -29,11 +29,59 @@ function App() {
       const newProject = {
         ...projectData,
         id: Math.random(),
+        tasks: [],
       };
       return {
         ...prevState,
-        selectedProjectId: newProject.id,
+        selectedProjectId: undefined,
         projects: [...prevState.projects, newProject],
+      };
+    });
+  }
+
+  function handleAddTask(text) {
+    const taskText = text.trim();
+    if (!taskText) return;
+
+    setProjectsState((prevState) => {
+      const newTask = {
+        text: taskText,
+        id: Math.random(),
+      };
+
+      return {
+        ...prevState,
+        projects: prevState.projects.map((project) =>
+          project.id === prevState.selectedProjectId
+            ? { ...project, tasks: [...project.tasks, newTask] }
+            : project,
+        ),
+      };
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    setProjectsState((prevState) => ({
+      ...prevState,
+      projects: prevState.projects.map((project) =>
+        project.id === prevState.selectedProjectId
+          ? {
+              ...project,
+              tasks: project.tasks.filter((task) => task.id !== taskId),
+            }
+          : project,
+      ),
+    }));
+  }
+
+  function handleDeleteProject() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter(
+          (project) => project.id !== prevState.selectedProjectId,
+        ),
       };
     });
   }
@@ -41,16 +89,21 @@ function App() {
   const selectedProject = projectsState.projects.find(
     (project) => project.id === projectsState.selectedProjectId,
   );
-
   let content;
-  console.log(projectsState);
 
   if (projectsState.selectedProjectId === null) {
     content = <NewProject onAdd={handleAddProject} />;
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   } else if (selectedProject) {
-    content = <SelectedProject project={selectedProject} />;
+    content = (
+      <SelectedProject
+        project={selectedProject}
+        onDelete={handleDeleteProject}
+        onAddTask={handleAddTask}
+        onDeleteTask={handleDeleteTask}
+      />
+    );
   } else {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
